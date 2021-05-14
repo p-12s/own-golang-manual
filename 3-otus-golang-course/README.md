@@ -5,3 +5,4 @@ Source: https://otus.ru/lessons/golang-professional/
 [02. Testing](https://github.com/p-12s/own-golang-manual/tree/master/3-otus-golang-course/02)
 [03. Simple types](https://github.com/p-12s/own-golang-manual/tree/master/3-otus-golang-course/03)
 [04. Array - Slice - Map](https://github.com/p-12s/own-golang-manual/tree/master/3-otus-golang-course/04)
+[05. Panic - Recover - Defer](https://github.com/p-12s/own-golang-manual/tree/master/3-otus-golang-course/05)
