@@ -18,3 +18,5 @@ Author repo: https://github.com/cutajarj/multithreadingingo
 ## Microservices with Go
 
 ## Microservice in Docker
+
+## Inside Go (го под капотом)
