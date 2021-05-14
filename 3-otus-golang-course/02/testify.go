@@ -1,8 +1,8 @@
 package foobar
 
 import (
-	"testing"
 	"github.com/stretchr/testify/require"
+	"testing"
 )
 func TestCount(t *testing.T) {
 	s := "qwerasdfe"
