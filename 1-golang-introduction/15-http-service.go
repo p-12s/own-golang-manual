@@ -53,6 +53,7 @@ func createHandler(writer http.ResponseWriter, request *http.Request) {
 
 	options := os.O_WRONLY | os.O_APPEND | os.O_CREATE
 	file, err := os.OpenFile("data-signatures.txt", options, os.FileMode(0600))
+	check(err)
 	_, err = fmt.Fprintln(file, signature)
 	check(err)
 

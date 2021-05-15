@@ -9,18 +9,22 @@ import (
     "strings"
 )
 
+func check(err error) {
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+
 func main() {
     fmt.Println("How old are you:")
     reader := bufio.NewReader(os.Stdin)
     input, err := reader.ReadString('\n')
+    check(err)
 
     input = strings.TrimSpace(input)
 
     years, err := strconv.ParseFloat(input, 64)
-
-    if err != nil {
-        log.Fatal(err)
-    }
+    check(err)
 
     if years >= 18 {
         fmt.Println("Willkommen!")

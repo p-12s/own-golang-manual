@@ -13,4 +13,5 @@ func main() {
 		"mango",
 	}
 	fruits = append(fruits, "orange")
+	fmt.Println(fruits)
 }
