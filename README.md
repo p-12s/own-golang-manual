@@ -10,8 +10,9 @@ Source: https://www.udemy.com/course/golang-o/
 Source: https://www.udemy.com/course/multithreading-in-go-lang/  
 Author repo: https://github.com/cutajarj/multithreadingingo  
 
-## Multi-threading
-[3. Otus-course](https://github.com/p-12s/own-golang-manual/tree/master/3-otus-golang-course)
+## Courses
+[3. Otus-course](https://github.com/p-12s/own-golang-manual/tree/master/3-otus-golang-course)  
+[4. Workshop-zhashkevych-course](https://github.com/p-12s/own-golang-manual/tree/master/4-workshop-zhashkevych)  
 
 ## Network programming
 
