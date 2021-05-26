@@ -1,4 +1,4 @@
-package foobar
+package testing
 
 import (
 	"github.com/stretchr/testify/require"
