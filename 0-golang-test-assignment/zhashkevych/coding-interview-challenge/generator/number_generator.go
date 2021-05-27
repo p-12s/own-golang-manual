@@ -19,7 +19,7 @@ type UniqueNumbers2Array struct {
 
 // Валидация значений в конфиге
 func (c *UniqueNumbers2Array) validateSettings() error {
-	availableNumbersCount := c.RightRangeNumber - c.LeftRangeNumber
+	availableNumbersCount := c.RightRangeNumber - c.LeftRangeNumber + 1
 	findNumbersCount := c.RowCount * c.ColumnCount
 
 	if availableNumbersCount <= 0 || availableNumbersCount < findNumbersCount {
