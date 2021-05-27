@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/own-golang-manual/0-golang-test-assignment/zhashkevych/coding-interview-challenge/generator"
 	"fmt"
+	"github.com/own-golang-manual/0-golang-test-assignment/zhashkevych/coding-interview-challenge/generator"
 	"log"
 )
 
@@ -13,10 +13,10 @@ func PrintTwoDimensionalArray(arr generator.Array) {
 }
 
 func main() {
-	arr := generator.UniqueNumbers2Array {
-		RowCount: 5,
-		ColumnCount: 5,
-		LeftRangeNumber: 1,
+	arr := generator.UniqueNumbers2Array{
+		RowCount:         5,
+		ColumnCount:      5,
+		LeftRangeNumber:  1,
 		RightRangeNumber: 25,
 	}
 	array, err := arr.Create()

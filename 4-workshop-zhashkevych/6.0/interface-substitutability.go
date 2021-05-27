@@ -8,9 +8,9 @@ import (
 // =================
 
 type employee struct {
-	id int
-	name string
-	age int
+	id     int
+	name   string
+	age    int
 	salary int
 }
 
@@ -19,9 +19,9 @@ type employee struct {
 // storage должен уметь делать вставку, получение и удаление сотрудников
 // как — это уже вопрос реализации
 type storage interface {
-	insert (e employee) error
-	get (id int) (employee, error)
-	delete (id int) error
+	insert(e employee) error
+	get(id int) (employee, error)
+	delete(id int) error
 }
 
 // =================
@@ -57,9 +57,9 @@ func (s *memoryStorage) delete(id int) error {
 
 // =================
 
-type dumbStorage struct {}
+type dumbStorage struct{}
 
-func newDumbStorage() * dumbStorage {
+func newDumbStorage() *dumbStorage {
 	return &dumbStorage{}
 }
 
@@ -118,12 +118,3 @@ func spawnEmployees(s storage) {
 		s.insert(employee{id: i})
 	}
 }
-
-
-
-
-
-
-
-
-

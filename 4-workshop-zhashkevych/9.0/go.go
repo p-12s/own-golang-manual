@@ -17,7 +17,7 @@ func main() {
 	// а эти еще сложнее
 	go calculateSomething(2000)
 
-	time.Sleep( 8 * time.Second)
+	time.Sleep(8 * time.Second)
 
 	fmt.Printf("Время выполнения программы: %s\n", time.Since(t))
 }
@@ -33,4 +33,3 @@ func calculateSomething(n int) {
 
 	fmt.Printf("Результат: %d; Прошло времени: %s\n", result, time.Since(t))
 }
-

@@ -10,14 +10,14 @@ type Player interface {
 	Stop()
 }
 
-func playList (device Player, song[]string) {
+func playList(device Player, song []string) {
 	for _, song := range song {
 		device.Play(song)
 	}
 	device.Stop()
 }
 
-func TryOut (player Player) {
+func TryOut(player Player) {
 	player.Play("Track")
 	player.Stop()
 
@@ -27,7 +27,7 @@ func TryOut (player Player) {
 
 func main() {
 	var player Player = gadget.TapePlayer{}
-	mixtape := []string {
+	mixtape := []string{
 		"First song",
 		"Second",
 		"Third",

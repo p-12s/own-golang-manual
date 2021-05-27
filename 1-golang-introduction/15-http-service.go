@@ -17,7 +17,7 @@ func check(err error) {
 
 type Guestbook struct {
 	SignatureCount int
-	Signature []string
+	Signature      []string
 }
 
 func viewHandler(writer http.ResponseWriter, request *http.Request) {
@@ -27,11 +27,9 @@ func viewHandler(writer http.ResponseWriter, request *http.Request) {
 	html, err := template.ParseFiles("view.html")
 	check(err)
 
-
-
-	guestbook := Guestbook {
+	guestbook := Guestbook{
 		SignatureCount: len(signature),
-		Signature: signature,
+		Signature:      signature,
 	}
 
 	err = html.Execute(writer, guestbook)

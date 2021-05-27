@@ -1,4 +1,5 @@
 package main
+
 import "fmt"
 
 func intSeq() func() int { // функция, которая возвращает функцию, которая возвращает int
@@ -17,4 +18,3 @@ func main() {
 	newInts := intSeq()
 	fmt.Println(newInts()) // 1
 }
-

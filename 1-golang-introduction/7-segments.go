@@ -8,7 +8,7 @@ func main() {
 	notes[0] = "Do"
 	fmt.Println(notes[0])
 
-	fruits := []string {
+	fruits := []string{
 		"apple",
 		"mango",
 	}

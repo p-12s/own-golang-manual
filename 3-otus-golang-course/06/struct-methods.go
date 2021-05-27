@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 type User struct {
-	Id int64
-	Name string
-	Age int
+	Id      int64
+	Name    string
+	Age     int
 	friends []int64
 }
 
@@ -20,7 +20,7 @@ func (u User) IsOk() bool {
 
 func main() {
 	var u = User{
-		Id: 1,
+		Id:      1,
 		friends: []int64{1},
 	}
 	fmt.Println(u.IsOk())

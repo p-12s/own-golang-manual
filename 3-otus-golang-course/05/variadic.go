@@ -13,7 +13,6 @@ func sum(nums ...int) { // variadic - many parameters
 	fmt.Println(total)
 }
 
-
 func main() {
 	sum(1, 2)
 	sum(1, 2, 3)

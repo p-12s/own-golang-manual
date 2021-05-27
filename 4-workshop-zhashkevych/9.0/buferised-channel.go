@@ -1,4 +1,5 @@
 package main
+
 import "fmt"
 
 /*
@@ -11,7 +12,7 @@ import "fmt"
 пока в канале не освободится место для еще одного элемента
 и отправляет элемент, только тогда, когда в канале
 освобождается для него место.
- */
+*/
 
 func main() {
 	intCh := make(chan int, 3)
@@ -21,10 +22,10 @@ func main() {
 	intCh <- 24
 	// intCh <- 15  // блокировка - функция main ждет, когда освободится место в канале
 
-	fmt.Println("capacity: ", cap(intCh))     // емкость элементов в канале
-	fmt.Println("length: ", len(intCh))     // количество элементов в канале
+	fmt.Println("capacity: ", cap(intCh)) // емкость элементов в канале
+	fmt.Println("length: ", len(intCh))   // количество элементов в канале
 
-	fmt.Println(<-intCh)     // 10
-	fmt.Println(<-intCh)     // 3
-	fmt.Println(<-intCh)     //24
+	fmt.Println(<-intCh) // 10
+	fmt.Println(<-intCh) // 3
+	fmt.Println(<-intCh) //24
 }

@@ -14,7 +14,6 @@ func (i *MyInt) Print2() { // method for alias - * значит "изменяю�
 	fmt.Println(*i)
 }
 
-
 func main() {
 	var i MyInt = 3
 	i.Print1()

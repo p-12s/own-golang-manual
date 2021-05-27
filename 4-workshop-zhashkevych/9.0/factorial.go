@@ -16,5 +16,5 @@ func factorial(n int, ch chan int) {
 		result *= i
 	}
 	fmt.Printf("%d! = %d\n", n, result)
-	ch <-result
+	ch <- result
 }

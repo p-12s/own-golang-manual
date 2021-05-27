@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	date := calendar.Date {}
+	date := calendar.Date{}
 
 	err := date.SetYear(2021)
 	if err != nil {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	var resp struct {
 		Ok        bool `json:"ok"`
 		Total     int  `json:"total"`
-		Documents []struct{
+		Documents []struct {
 			Id    int    `json:"id"`
 			Title string `json:"title"`
 		} `json:"documents"`

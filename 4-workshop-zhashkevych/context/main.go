@@ -92,5 +92,3 @@ func main() {
 	http.HandleFunc("/", handle)
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
-
-

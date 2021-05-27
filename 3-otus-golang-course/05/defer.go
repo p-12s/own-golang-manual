@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func c() (i int, j int) {
-	defer func() { i *= 10 } ()
+	defer func() { i *= 10 }()
 	return 10, 20
 }
 

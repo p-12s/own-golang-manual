@@ -7,42 +7,42 @@ import (
 func Test_ValidateSettings(t *testing.T) {
 
 	testTable := []struct {
-		name         string
+		name                                                     string
 		rowCount, columnCount, leftRangeNumber, rightRangeNumber int
-		wantErr      bool
+		wantErr                                                  bool
 	}{
 		{
-			name: "Ok if find elements < range",
-			rowCount: 5,
-			columnCount: 5,
-			leftRangeNumber: 1,
+			name:             "Ok if find elements < range",
+			rowCount:         5,
+			columnCount:      5,
+			leftRangeNumber:  1,
 			rightRangeNumber: 100,
-			wantErr: false,
+			wantErr:          false,
 		},
 		{
-			name: "Ok if find elements = range",
-			rowCount: 5,
-			columnCount: 5,
-			leftRangeNumber: 1,
+			name:             "Ok if find elements = range",
+			rowCount:         5,
+			columnCount:      5,
+			leftRangeNumber:  1,
 			rightRangeNumber: 25,
-			wantErr: false,
+			wantErr:          false,
 		},
 		{
-			name: "Not ok if find elements < range",
-			rowCount: 5,
-			columnCount: 5,
-			leftRangeNumber: 1,
+			name:             "Not ok if find elements < range",
+			rowCount:         5,
+			columnCount:      5,
+			leftRangeNumber:  1,
 			rightRangeNumber: 24,
-			wantErr: true,
+			wantErr:          true,
 		},
 	}
 
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
 			arr := UniqueNumbers2Array{
-				RowCount: testCase.rowCount,
-				ColumnCount: testCase.columnCount,
-				LeftRangeNumber: testCase.leftRangeNumber,
+				RowCount:         testCase.rowCount,
+				ColumnCount:      testCase.columnCount,
+				LeftRangeNumber:  testCase.leftRangeNumber,
 				RightRangeNumber: testCase.rightRangeNumber,
 			}
 
@@ -60,7 +60,7 @@ func Test_ValidateSettings(t *testing.T) {
 
 func Test_MakeShuffledRange(t *testing.T) {
 	testTable := []struct {
-		name         string
+		name                                                     string
 		rowCount, columnCount, leftRangeNumber, rightRangeNumber int
 	}{
 		{
@@ -83,9 +83,9 @@ func Test_MakeShuffledRange(t *testing.T) {
 
 			// Prepare
 			arr := UniqueNumbers2Array{
-				RowCount: testCase.rowCount,
-				ColumnCount: testCase.columnCount,
-				LeftRangeNumber: testCase.leftRangeNumber,
+				RowCount:         testCase.rowCount,
+				ColumnCount:      testCase.columnCount,
+				LeftRangeNumber:  testCase.leftRangeNumber,
 				RightRangeNumber: testCase.rightRangeNumber,
 			}
 			err := arr.validateSettings()
@@ -103,9 +103,9 @@ func Test_MakeShuffledRange(t *testing.T) {
 
 func Test_FillArray(t *testing.T) {
 	testTable := []struct {
-		name         string
+		name                                                     string
 		rowCount, columnCount, leftRangeNumber, rightRangeNumber int
-		wantErr      bool
+		wantErr                                                  bool
 	}{
 		{
 			name:             "5x5 ok",
@@ -133,9 +133,9 @@ func Test_FillArray(t *testing.T) {
 		t.Run(testCase.name, func(t *testing.T) {
 			// Prepare
 			arr := UniqueNumbers2Array{
-				RowCount: testCase.rowCount,
-				ColumnCount: testCase.columnCount,
-				LeftRangeNumber: testCase.leftRangeNumber,
+				RowCount:         testCase.rowCount,
+				ColumnCount:      testCase.columnCount,
+				LeftRangeNumber:  testCase.leftRangeNumber,
 				RightRangeNumber: testCase.rightRangeNumber,
 			}
 			err := arr.validateSettings()
@@ -153,9 +153,9 @@ func Test_FillArray(t *testing.T) {
 
 func Test_Create(t *testing.T) {
 	testTable := []struct {
-		name         string
+		name                                                     string
 		rowCount, columnCount, leftRangeNumber, rightRangeNumber int
-		wantErr      bool
+		wantErr                                                  bool
 	}{
 		{
 			name:             "5x5 ok",
@@ -163,7 +163,7 @@ func Test_Create(t *testing.T) {
 			columnCount:      5,
 			leftRangeNumber:  1,
 			rightRangeNumber: 25,
-			wantErr:			false,
+			wantErr:          false,
 		},
 		{
 			name:             "10x5 ok",
@@ -171,7 +171,7 @@ func Test_Create(t *testing.T) {
 			columnCount:      5,
 			leftRangeNumber:  1,
 			rightRangeNumber: 50,
-			wantErr:			false,
+			wantErr:          false,
 		},
 		{
 			name:             "10x10 ok",
@@ -179,7 +179,7 @@ func Test_Create(t *testing.T) {
 			columnCount:      10,
 			leftRangeNumber:  1,
 			rightRangeNumber: 100,
-			wantErr:			false,
+			wantErr:          false,
 		},
 		{
 			name:             "10x10!=99 not ok",
@@ -187,16 +187,16 @@ func Test_Create(t *testing.T) {
 			columnCount:      10,
 			leftRangeNumber:  1,
 			rightRangeNumber: 99,
-			wantErr:			true,
+			wantErr:          true,
 		},
 	}
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
 			// Prepare
 			arr := UniqueNumbers2Array{
-				RowCount: testCase.rowCount,
-				ColumnCount: testCase.columnCount,
-				LeftRangeNumber: testCase.leftRangeNumber,
+				RowCount:         testCase.rowCount,
+				ColumnCount:      testCase.columnCount,
+				LeftRangeNumber:  testCase.leftRangeNumber,
 				RightRangeNumber: testCase.rightRangeNumber,
 			}
 
@@ -231,7 +231,7 @@ func checkNumbersUnique(t *testing.T, arr *UniqueNumbers2Array) {
 	}
 
 	// для компрометации уникальности (проверка самих тестов) задваиваем первые 2 значения и ловим ошибку
-	notUniqueNumbersMap := make(map[int]struct{}, arr.RightRangeNumber - arr.LeftRangeNumber + 1)
+	notUniqueNumbersMap := make(map[int]struct{}, arr.RightRangeNumber-arr.LeftRangeNumber+1)
 
 	item0 := arr.shuffledRange[0]
 	arr.shuffledRange[0] = 1

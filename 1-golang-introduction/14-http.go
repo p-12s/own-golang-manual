@@ -8,7 +8,7 @@ import (
 )
 
 type Page struct {
-	URL string
+	URL  string
 	Size int
 }
 
@@ -29,8 +29,6 @@ func responseSize(url string, channel chan Page) {
 	channel <- Page{URL: url, Size: len(body)}
 }
 
-
-
 func main() {
 	/*sizes := make(chan int)
 	go responseSize("https://golang.org/", sizes) // горутины
@@ -49,7 +47,7 @@ func main() {
 
 	// перепишем через сегменты (цикл)
 	pages := make(chan Page)
-	urls := []string {
+	urls := []string{
 		"https://golang.org/",
 		"https://golang.org/doc",
 	}

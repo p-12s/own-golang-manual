@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func GetFloats (fileName string)([]float64, error) {
+func GetFloats(fileName string) ([]float64, error) {
 
 	var numbers []float64
 

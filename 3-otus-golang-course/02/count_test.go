@@ -2,35 +2,35 @@ package foobar
 
 import (
 	"fmt"
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestCount(t *testing.T) {
 
 	testTable := []struct {
-		str string
-		findibleRune rune
+		str                         string
+		findibleRune                rune
 		expectedDuplicatedRuneCount int
 	}{
 		{
-			str: "qwerasdfe",
-			findibleRune: 'e',
+			str:                         "qwerasdfe",
+			findibleRune:                'e',
 			expectedDuplicatedRuneCount: 2,
 		},
 		{
-			str: "",
-			findibleRune: 'e',
+			str:                         "",
+			findibleRune:                'e',
 			expectedDuplicatedRuneCount: 0,
 		},
 		{
-			str: "aaa",
-			findibleRune: 's',
+			str:                         "aaa",
+			findibleRune:                's',
 			expectedDuplicatedRuneCount: 0,
 		},
 		{
-			str: "aaa",
-			findibleRune: 'a',
+			str:                         "aaa",
+			findibleRune:                'a',
 			expectedDuplicatedRuneCount: 3,
 		},
 	}

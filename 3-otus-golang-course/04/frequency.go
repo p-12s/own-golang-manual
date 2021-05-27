@@ -49,9 +49,9 @@ func Frequency(words []string) map[string]int {
 
 	for _, word := range words {
 		_, ok := frequencyDict[word] // check if word (the key) is already in the map
-		if ok == true { // if true add 1 to frequency (value of map)
+		if ok == true {              // if true add 1 to frequency (value of map)
 			frequencyDict[word] += 1
-		} else { 		// else start frequency at 1
+		} else { // else start frequency at 1
 			frequencyDict[word] = 1
 		}
 	}
@@ -60,16 +60,15 @@ func Frequency(words []string) map[string]int {
 }
 
 type Pair struct {
-	Key string
+	Key   string
 	Value int
 }
 
 type PairList []Pair
 
-func (p PairList) Len() int { return len(p) }
+func (p PairList) Len() int           { return len(p) }
 func (p PairList) Less(i, j int) bool { return p[i].Value < p[j].Value }
-func (p PairList) Swap(i, j int){ p[i], p[j] = p[j], p[i] }
-
+func (p PairList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 
 func rankByWordCount(wordFrequencies map[string]int) PairList {
 	pl := make(PairList, len(wordFrequencies))

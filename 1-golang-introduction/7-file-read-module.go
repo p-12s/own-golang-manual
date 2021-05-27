@@ -19,6 +19,5 @@ func main() {
 	}
 
 	count := float64(len(numbers))
-	fmt.Println("Стреднее: ", sum / count)
+	fmt.Println("Стреднее: ", sum/count)
 }
-

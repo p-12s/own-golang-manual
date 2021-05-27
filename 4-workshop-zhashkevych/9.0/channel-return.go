@@ -12,9 +12,9 @@ func main() {
 }
 
 func createChan(n int) chan int {
-	ch := make(chan int)    // создаем канал
-	go func(){
-		ch <- n      // отправляем данные в канал
-	}()             // запускаем горутину
-	return ch   // возвращаем канал
+	ch := make(chan int) // создаем канал
+	go func() {
+		ch <- n // отправляем данные в канал
+	}() // запускаем горутину
+	return ch // возвращаем канал
 }

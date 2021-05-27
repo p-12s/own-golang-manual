@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Карты (под капотом - сегменты)
-	myMap := map[string]float64 {
+	myMap := map[string]float64{
 		"a": 1.3,
 		"b": 3.23,
 	}
@@ -28,10 +28,10 @@ func main() {
 	fmt.Println(names)
 
 	// НЕупорядоченная карта
-	langs := map[string]float64 {
-		"go": 1000,
+	langs := map[string]float64{
+		"go":  1000,
 		"php": 256,
-		"c#": 342,
+		"c#":  342,
 	}
 	for key, value := range langs {
 		fmt.Println(key, " ", value)

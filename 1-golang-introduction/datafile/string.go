@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func GetStrings (fileName string)([]string, error) {
+func GetStrings(fileName string) ([]string, error) {
 
 	var lines []string
 

@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 type User struct { // recursion struct
-	Name string
+	Name   string
 	parent *User
 }
 
@@ -22,8 +22,8 @@ func main() {
 	fmt.Printf("v user2: %v\n", user2)
 	fmt.Println(user2)
 
-	user3 := User {
-		Name: "Ivan",
+	user3 := User{
+		Name:   "Ivan",
 		parent: &user2,
 	}
 	fmt.Printf("v user3: %v\n", user3)

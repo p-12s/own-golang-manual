@@ -14,13 +14,13 @@ const message = "I use Go interfaces"
 
 type httpWriter struct {
 	client *http.Client
-	addr string
+	addr   string
 }
 
 func newHttpWriter(addr string) *httpWriter {
 	return &httpWriter{
 		client: http.DefaultClient,
-		addr: addr,
+		addr:   addr,
 	}
 }
 

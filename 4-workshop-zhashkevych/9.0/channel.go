@@ -35,4 +35,3 @@ func calculateSomething(n int, res chan int) {
 	fmt.Printf("Результат: %d; Прошло времени: %s\n", result, time.Since(t))
 	res <- result
 }
-

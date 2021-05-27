@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"math"
 )
+
 // =====
 type Shape interface {
 	Area() float64
 	Name() string
 }
+
 // =====
 type Square struct {
 	sideLength float64
@@ -20,6 +22,7 @@ type Rectangle struct {
 type Circle struct {
 	radius float64
 }
+
 // =====
 func (s Square) Area() float64 {
 	return math.Pow(s.sideLength, 2)
@@ -55,4 +58,3 @@ func main() {
 func printShapeArea(s Shape) {
 	fmt.Printf("%s area: %.2f sm^2\n", s.Name(), s.Area())
 }
-

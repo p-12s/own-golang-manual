@@ -40,7 +40,6 @@ func calculateCircleArea(radius int) (float32, error) {
 	return float32(radius) * float32(radius) * math.Pi, nil
 }
 
-
 func printRectangleInfo(a int, b int) {
 	rectanglePerimeter, err := calculateRectanglePerimeter(a, b)
 	if err != nil {

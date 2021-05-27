@@ -17,11 +17,11 @@ func main() {
 	fmt.Println("The End")
 }
 
-func factorial2(n int, ch chan<- int){ // канал, доступный только для отправки данных
-    // внутри функции factorial мы можем только отправлять данные в канал, но не получать их
+func factorial2(n int, ch chan<- int) { // канал, доступный только для отправки данных
+	// внутри функции factorial мы можем только отправлять данные в канал, но не получать их
 	result := 1
-	for i := 1; i <= n; i++{
+	for i := 1; i <= n; i++ {
 		result *= i
 	}
-	ch <-result
+	ch <- result
 }

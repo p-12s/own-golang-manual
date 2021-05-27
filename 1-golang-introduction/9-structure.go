@@ -3,8 +3,8 @@ package main
 func main() {
 	// Структуры
 	var subscriber struct {
-		name string
-		rate float64
+		name   string
+		rate   float64
 		active bool
 	}
 

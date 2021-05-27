@@ -8,13 +8,13 @@ import (
 )
 
 type UniqueNumbers2Array struct {
-	RowCount int
-	ColumnCount int
-	LeftRangeNumber int
+	RowCount         int
+	ColumnCount      int
+	LeftRangeNumber  int
 	RightRangeNumber int
 
 	shuffledRange []int
-	resultArr [][]int
+	resultArr     [][]int
 }
 
 // Валидация значений в конфиге
@@ -32,7 +32,7 @@ func (c *UniqueNumbers2Array) validateSettings() error {
 
 // Создание перемешанного массива
 func (c *UniqueNumbers2Array) makeShuffledRange() {
-	c.shuffledRange = make([]int, c.RightRangeNumber - c.LeftRangeNumber + 1)
+	c.shuffledRange = make([]int, c.RightRangeNumber-c.LeftRangeNumber+1)
 	for i := range c.shuffledRange {
 		c.shuffledRange[i] = c.LeftRangeNumber + i
 	}

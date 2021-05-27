@@ -20,7 +20,7 @@ import (
 */
 
 func UnpackStr(s string) string {
-	var storage [] byte
+	var storage []byte
 	var prevChar byte = '\n'
 
 	for i := 0; i < len(s); i++ {
@@ -37,7 +37,7 @@ func UnpackStr(s string) string {
 				k++
 			}
 			prevChar = '\n'
-		// is char
+			// is char
 		} else {
 			if prevChar != '\n' {
 				storage = append(storage, prevChar)
@@ -45,7 +45,7 @@ func UnpackStr(s string) string {
 			prevChar = s[i]
 		}
 		// last char in string if it not digit
-		if i == (len(s) - 1) && !('0' <= s[i] && s[i] <= '9') {
+		if i == (len(s)-1) && !('0' <= s[i] && s[i] <= '9') {
 			storage = append(storage, prevChar)
 		}
 		// Check wrong string like "5c or 55"
