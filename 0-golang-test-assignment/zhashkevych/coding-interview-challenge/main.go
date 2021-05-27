@@ -14,10 +14,10 @@ func PrintTwoDimensionalArray(arr generator.Array) {
 
 func main() {
 	arr := generator.UniqueNumbers2Array {
-		RowCount: 2,
-		ColumnCount: 2,
+		RowCount: 5,
+		ColumnCount: 5,
 		LeftRangeNumber: 1,
-		RightRangeNumber: 4,
+		RightRangeNumber: 25,
 	}
 	array, err := arr.Create()
 	if err != nil {
