@@ -6,11 +6,10 @@ import (
 	"log"
 )
 
-func PrintTwoDimensionalArray(array generator.Array) error {
-	for rowIndex, col := range array {
+func PrintTwoDimensionalArray(arr generator.Array) {
+	for rowIndex, col := range arr {
 		fmt.Printf("%d. %d\n", (rowIndex + 1), col)
 	}
-	return nil
 }
 
 func main() {

@@ -88,7 +88,10 @@ func Test_MakeShuffledRange(t *testing.T) {
 				LeftRangeNumber: testCase.leftRangeNumber,
 				RightRangeNumber: testCase.rightRangeNumber,
 			}
-			arr.validateSettings()
+			err := arr.validateSettings()
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err.Error())
+			}
 			arr.makeShuffledRange()
 
 			// Checks
@@ -135,7 +138,10 @@ func Test_FillArray(t *testing.T) {
 				LeftRangeNumber: testCase.leftRangeNumber,
 				RightRangeNumber: testCase.rightRangeNumber,
 			}
-			arr.validateSettings()
+			err := arr.validateSettings()
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err.Error())
+			}
 			arr.makeShuffledRange()
 			arr.fillArray()
 
