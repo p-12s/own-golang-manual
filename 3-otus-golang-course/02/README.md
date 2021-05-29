@@ -1,5 +1,8 @@
 # Testing
 
+UPD: гораздо лучшие примеры тестирования в этом проекте (параллельные, есть моки):
+https://github.com/p-12s/todo-list-rest-api
+
 ## Method
 ```
 package foobar
