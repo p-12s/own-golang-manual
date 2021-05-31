@@ -1,8 +1,0 @@
-mode: set
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/batch_send.go:9.34,12.29 3 1
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/batch_send.go:15.2,15.14 1 1
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/batch_send.go:12.29,14.3 1 1
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/service.go:26.67,28.2 1 1
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/service.go:30.75,32.42 2 1
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/service.go:35.2,36.12 2 1
-/Users/pavel/GitHub-repos/own-golang-manual/0-golang-test-assignment/kazan-express/service/service.go:32.42,34.3 1 1
