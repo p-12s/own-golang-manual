@@ -7,10 +7,9 @@ type Batch []Item
 type Item struct{}
 
 func CreateBatch(n uint64) Batch {
-	var batch Batch
-	batch = make([]Item, n)
-	var i uint64 = 0
-	for i = 0; i < n; i++ {
+	index := int(n)
+	var batch Batch = make([]Item, index)
+	for i := 0; i < index; i++ {
 		batch[i] = Item{}
 	}
 	return batch

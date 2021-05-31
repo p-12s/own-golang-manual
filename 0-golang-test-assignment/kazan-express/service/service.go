@@ -20,8 +20,7 @@ type ExternalService struct {
 	MaxProcessItem uint64
 	ProcessPeriod time.Duration
 
-	banPeriod time.Duration // период бана, в случае превышения лимита элементов
-	alreadyProcessedCount uint64 // кол-во уже обработанных
+	AlreadyProcessedCount uint64 // кол-во уже обработанных
 }
 
 func (e *ExternalService) GetLimits() (n uint64, t time.Duration) {
@@ -29,7 +28,7 @@ func (e *ExternalService) GetLimits() (n uint64, t time.Duration) {
 }
 
 func (e *ExternalService) Process(ctx context.Context, batch Batch) error {
-	sumProcessedCount := uint64(len(batch)) + e.alreadyProcessedCount
+	sumProcessedCount := uint64(len(batch)) + e.AlreadyProcessedCount
 	if sumProcessedCount > e.MaxProcessItem {
 		return errors.New("blocked")
 	}

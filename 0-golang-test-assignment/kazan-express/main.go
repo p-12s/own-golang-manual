@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"math"
@@ -12,37 +11,24 @@ import (
 
 func main() {
 	externalService := service.ExternalService {
-		MaxProcessItem: 100,
+		MaxProcessItem: 10,
 		ProcessPeriod: 3, // пусть период обработки будет в секундах
-		alreadyProcessedCount: 0, // для простоты примем, что уже обработано столько
+		AlreadyProcessedCount: 0, // для простоты примем, что уже обработано столько
 	}
-
-	// запрашиваем лимит и период
+	// имитируем запрос лимита и периода у внешнего сервиса
 	limit, duration := externalService.GetLimits()
 
 	var ctx context.Context
-	batch1 := createBatch(limit)
-	fmt.Println(batch1)
-	// 1) отправляем пачку = n с периодичностью t
-	for _ = range time.Tick(time.Second * duration) {
-		err := externalService.Process(ctx, batch1)
-		if err != nil {
-			log.Fatalf(err.Error())
-		}
-		fmt.Println("Batch type 1 send")
-	}
-	// минусы подхода - если за предыдущий период (до запуска) счетчик обработанных задач уже > 0 - будет ошибка
-	// нужно сначала запросить: "у меня счетчик обработанных Item обнулен? Если нет - уменьшать первый Batch на это количество"
 
-	// 2) отправляем пачку = n/(t*60 сек) в период времени - для равномерности
+	// отправляем пачку = n/(t*60 сек) в период времени - для равномерности
 	itemInSec := uint64(math.Floor(float64(limit)/float64(duration)))
-	batch2 := createBatch(itemInSec)
+	batch := service.CreateBatch(itemInSec)
 
-	for _ = range time.Tick(time.Second) {
-		err := externalService.Process(ctx, batch2)
+	for range time.Tick(time.Second) {
+		err := externalService.Process(ctx, batch)
 		if err != nil {
 			log.Fatalf(err.Error())
 		}
-		fmt.Println("Batch type 2 send")
+		fmt.Println("Batch send period 1 sec")
 	}
 }
