@@ -9,7 +9,7 @@ import (
 
 // Service может обрабатывать элементы пачками
 type Service interface {
-	GetLimits() (n uint64, t time.Duration)			// лимит - кол-во элементов в период времени
+	GetLimits() (n uint64, t time.Duration)         // лимит - кол-во элементов в период времени
 	Process(ctx context.Context, batch Batch) error // обработать пачку
 }
 
@@ -18,7 +18,7 @@ type Service interface {
 // предполагаем что самое простое - при получении пачки элементов проверяем в БД сколько уже обработали и решаем
 type ExternalService struct {
 	MaxProcessItem uint64
-	ProcessPeriod time.Duration
+	ProcessPeriod  time.Duration
 
 	AlreadyProcessedCount uint64 // кол-во уже обработанных
 }
