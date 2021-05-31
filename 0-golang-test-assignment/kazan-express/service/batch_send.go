@@ -1,6 +1,6 @@
 package service
 
-// Batch - почка элементов
+// Batch - пачка элементов
 type Batch []Item
 
 // Item - элемент, абстрактный тип
