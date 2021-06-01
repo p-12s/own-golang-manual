@@ -7,28 +7,28 @@ import (
 )
 
 const (
-	sizeUint8 = unsafe.Sizeof(uint8(0))
-	sizeUint16 = unsafe.Sizeof(uint16(0))
-	sizeUint32 = unsafe.Sizeof(uint32(0))
-	sizeUint64 = unsafe.Sizeof(uint64(0))
-	sizeUint = unsafe.Sizeof(uint(0))
+	sizeUint8   = unsafe.Sizeof(uint8(0))
+	sizeUint16  = unsafe.Sizeof(uint16(0))
+	sizeUint32  = unsafe.Sizeof(uint32(0))
+	sizeUint64  = unsafe.Sizeof(uint64(0))
+	sizeUint    = unsafe.Sizeof(uint(0))
 	sizeUintptr = unsafe.Sizeof(uintptr(0))
 
-	sizeInt8 = unsafe.Sizeof(int8(0))
+	sizeInt8  = unsafe.Sizeof(int8(0))
 	sizeInt16 = unsafe.Sizeof(int16(0))
 	sizeInt32 = unsafe.Sizeof(int32(0))
 	sizeInt64 = unsafe.Sizeof(int64(0))
-	sizeInt = unsafe.Sizeof(int(0))
+	sizeInt   = unsafe.Sizeof(int(0))
 
 	sizeFloat32 = unsafe.Sizeof(float32(0))
 	sizeFloat64 = unsafe.Sizeof(float64(0))
 
-	sizeComplex64 = unsafe.Sizeof(complex64(0))
+	sizeComplex64  = unsafe.Sizeof(complex64(0))
 	sizeComplex128 = unsafe.Sizeof(complex128(0))
 
 	sizeString = unsafe.Sizeof(string(""))
-	sizeByte = unsafe.Sizeof(byte(0)) // type byte = uint8
-	sizeRune = unsafe.Sizeof(rune('a')) // type rune = int32
+	sizeByte   = unsafe.Sizeof(byte(0))   // type byte = uint8
+	sizeRune   = unsafe.Sizeof(rune('a')) // type rune = int32
 )
 
 func main() {
@@ -68,7 +68,7 @@ func main() {
 	// go vet отлавливает ошибки работы с модулем unsafe, но в сложных случаях не поможет
 	a := 5
 	e := unsafe.Pointer(&a)
-	
+
 	fmt.Println(e)
 	// когда это нужно использ? - когда нужна супер оптимизацция
 	// поискать в домашках отуса unsafe
