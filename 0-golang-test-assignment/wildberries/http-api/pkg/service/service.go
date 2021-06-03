@@ -1,8 +1,11 @@
 package service
 
-import "github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
+import (
+	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
+)
 
 type Authorization interface {
+
 }
 
 type Comment interface {

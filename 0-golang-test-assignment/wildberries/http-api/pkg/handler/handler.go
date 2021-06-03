@@ -3,9 +3,6 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/service"
-	//"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
-	//"github.com/swaggo/gin-swagger"
-	//"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 type Handler struct {
