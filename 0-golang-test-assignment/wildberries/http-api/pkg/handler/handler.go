@@ -21,36 +21,40 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	// router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	/*auth := router.Group("/auth")
+	v1 := router.Group("/api")
 	{
-		auth.POST("/sign-up", h.signUp)
-		auth.POST("/sign-in", h.signIn)
-	}*/
-
-	api := router.Group("/api", nil)//, h.userIdentity
-	{
-		/*lists := api.Group("/lists")
+		api := router.Group("/v1", nil) //, h.userIdentity
 		{
-			lists.POST("/", h.createList)
-			lists.GET("/", h.getAllLists)
-			lists.GET("/:id", h.getListById)
-			lists.PUT("/:id", h.updateList)
-			lists.DELETE("/:id", h.deleteList)
-
-			items := lists.Group(":id/items")
+			auth := router.Group("/auth")
 			{
-				items.POST("/", h.createItem)
-				items.GET("/", h.getAllItems)
+				auth.POST("/sign-up", h.signUp)
+				auth.POST("/sign-in", h.signIn)
+			}
+
+			user := api.Group("/user")
+			{
+				user.POST("/", h.createUser)      // добавление
+				user.GET("/", h.getAllUsers)      // просмотр всех
+				user.GET("/:id", h.getUserById)   // просмотр
+				user.PUT("/:id", h.updateUser)    // редактирование
+				user.DELETE("/:id", h.deleteUser) // удаление
+
+				comments := user.Group(":id/comment")
+				{
+					comments.POST("/", h.createComment) // создание коммента
+					comments.GET("/", h.getAllComments) // показ всех комментов
+				}
+			}
+
+			comments := api.Group("comment")
+			{
+				comments.GET("/:id", h.getCommentById)   // получение коммента
+				comments.PUT("/:id", h.updateComment)    // обновление
+				comments.DELETE("/:id", h.deleteComment) // удаление
 			}
 		}
-
-		items := api.Group("items")
-		{
-			items.GET("/:id", h.getItemById)
-			items.PUT("/:id", h.updateItem)
-			items.DELETE("/:id", h.deleteItem)
-		}*/
 	}
-	_ = api
+
+	_ = v1
 	return router
 }

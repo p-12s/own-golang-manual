@@ -3,16 +3,15 @@ package main
 import (
 	"context"
 	"github.com/joho/godotenv"
-	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/handler"
+	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
+	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/service"
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"os"
 	"os/signal"
 	"syscall"
-
-	//"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
-	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/service"
 )
 
 // TODO добавить доку
@@ -28,8 +27,8 @@ func main() {
 		logrus.Fatalf("Error loading env variables: %s", err.Error())
 	}
 
-	services := service.NewService()//repos
-	//fmt.Println(services)
+	repos := repository.NewRepository()
+	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
 	srv := new(http_api.Server)

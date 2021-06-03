@@ -7,6 +7,7 @@ require (
 	github.com/coreos/go-etcd v2.0.0+incompatible // indirect
 	github.com/gin-gonic/gin v1.7.2 // indirect
 	github.com/joho/godotenv v1.3.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spf13/viper v1.7.1 // indirect
 	github.com/swaggo/gin-swagger v1.3.0 // indirect
