@@ -37,7 +37,7 @@ or
 telnet
 open 127.0.0.1 3302
 quit
- */
+*/
 func main() {
 	l, err := net.Listen("tcp", "0.0.0.0:3302")
 	if err != nil {
