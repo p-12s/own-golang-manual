@@ -1,54 +1,48 @@
 package main
 
 import (
-	"context"
 	"github.com/joho/godotenv"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/handler"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/service"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"log"
+	_ "github.com/lib/pq"
 	"os"
-	"os/signal"
-	"syscall"
 )
 
 // TODO добавить доку
-func main() {
-	// TODO переделать логирование на Zap
-	logrus.SetFormatter(new(logrus.JSONFormatter))
+// TODO переделать логирование на Zap
 
+func main() {
 	if err := initConfig(); err != nil {
-		logrus.Fatalf("Error init configs: %s\n", err.Error())
+		log.Fatalf("Error init configs: %s\n", err.Error())
 	}
 
 	if err := godotenv.Load(); err != nil {
-		logrus.Fatalf("Error loading env variables: %s", err.Error())
+		log.Fatalf("Error loading env variables: %s", err.Error())
 	}
 
-	repos := repository.NewRepository()
+	db, err := repository.NewPostgresDB(repository.Config{
+		Host: viper.GetString("db.host"),
+		Port: viper.GetString("db.port"),
+		DBName: viper.GetString("db.dbname"),
+		SSLMode: viper.GetString("db.sslmode"),
+		Username: os.Getenv("DB_USER"),
+		Password: os.Getenv("DB_PASSWORD"),
+	})
+	if err != nil {
+		log.Fatalf("Failed to initialize DB: $s\n", err.Error())
+	}
+	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
 	srv := new(common.Server)
-	go func() {
-		if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-			logrus.Fatalf("error occured while running http server: %s", err.Error())
-		}
-	}()
-
-	logrus.Print("Service Started")
-
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
-	<-quit
-
-	if err := srv.Shutdown(context.Background()); err != nil {
-		logrus.Errorf("error occured on server shutting down: %s", err.Error())
+	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
+		log.Fatalf("error occured while running http server: %s", err.Error())
 	}
-
-	logrus.Print("Service Shutting Down")
 }
 
 func initConfig() error {

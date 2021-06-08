@@ -5,7 +5,6 @@ import (
 )
 
 type Authorization interface {
-
 }
 
 type Comment interface {
