@@ -52,7 +52,8 @@ select * from users;
 go run ./cmd/main.go
 ```
 
-
+## 
+- Логирование с logrus
 
 
 

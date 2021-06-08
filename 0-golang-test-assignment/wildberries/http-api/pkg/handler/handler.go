@@ -51,6 +51,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			}
 		}
 	}
+	//v1.GET("/hello", h.test)
 
 	_ = v1
 	return router

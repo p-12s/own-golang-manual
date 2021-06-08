@@ -1,39 +1,42 @@
 package main
 
 import (
+	"os"
+
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/handler"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/repository"
 	"github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api/pkg/service"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"log"
-	_ "github.com/lib/pq"
-	"os"
 )
 
 // TODO добавить доку
 // TODO переделать логирование на Zap
 
 func main() {
+	logrus.SetFormatter(new(logrus.JSONFormatter))
+
 	if err := initConfig(); err != nil {
-		log.Fatalf("Error init configs: %s\n", err.Error())
+		logrus.Fatalf("Error init configs: %s\n", err.Error())
 	}
 
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading env variables: %s", err.Error())
+		logrus.Fatalf("Error loading env variables: %s", err.Error())
 	}
 
 	db, err := repository.NewPostgresDB(repository.Config{
-		Host: viper.GetString("db.host"),
-		Port: viper.GetString("db.port"),
-		DBName: viper.GetString("db.dbname"),
-		SSLMode: viper.GetString("db.sslmode"),
+		Host:     viper.GetString("db.host"),
+		Port:     viper.GetString("db.port"),
+		DBName:   viper.GetString("db.dbname"),
+		SSLMode:  viper.GetString("db.sslmode"),
 		Username: os.Getenv("DB_USER"),
 		Password: os.Getenv("DB_PASSWORD"),
 	})
 	if err != nil {
-		log.Fatalf("Failed to initialize DB: $s\n", err.Error())
+		logrus.Fatalf("Failed to initialize DB: $s\n", err.Error())
 	}
 	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
@@ -41,7 +44,7 @@ func main() {
 
 	srv := new(common.Server)
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		log.Fatalf("error occured while running http server: %s", err.Error())
+		logrus.Fatalf("error occured while running http server: %s", err.Error())
 	}
 }
 
