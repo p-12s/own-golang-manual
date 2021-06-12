@@ -1,8 +1,0 @@
-port: "80"
-
-db:
-  host: "localhost" # endpoint - по АПИ будем ходить на localhost
-  port: "5432"
-  schema: ""
-  dbname: "postgres"
-  sslmode: "disable"
