@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package techschool.pcbook;
+
+import "memory_message.proto";
+import "precessor_message.proto";
+import "storage_message.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package="./pb";
+
+message Laptop {
+  string id = 1;
+  string brand = 2;
+  CPU cpu = 3;
+  repeated GPU gpu = 4;
+  Memory ram = 5;
+  repeated Storage storage = 6;
+  oneof weight {
+    double weight_kg = 10;
+    double weight_lb = 11;
+  }
+  double price_usd = 12;
+  uint32 release_year = 13;
+  google.protobuf.Timestamp updated_at = 14;
+}

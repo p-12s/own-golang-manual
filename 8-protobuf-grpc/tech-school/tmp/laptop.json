@@ -1,0 +1,48 @@
+{
+ "id": "534aa3ae-339d-47b9-a824-5a831bd4c829",
+ "brand": "HUAWEY",
+ "cpu": {
+  "brand": "Эльбрус",
+  "name": "i5",
+  "number_cores": 8,
+  "number_threads": 11,
+  "min_ghz": 2.4881662316587843,
+  "max_ghz": 4.112899423238625
+ },
+ "gpu": [
+  {
+   "brand": "AMD",
+   "name": "RTX",
+   "min_ghz": 1.1280683968554912,
+   "max_ghz": 1.7081912782981932,
+   "memory": {
+    "value": "2",
+    "uint": "GIGABYTE"
+   }
+  }
+ ],
+ "ram": {
+  "value": "62",
+  "uint": "GIGABYTE"
+ },
+ "storage": [
+  {
+   "driver": "HDD",
+   "memory": {
+    "value": "1",
+    "uint": "TERABYTE"
+   }
+  },
+  {
+   "driver": "SSD",
+   "memory": {
+    "value": "982",
+    "uint": "GIGABYTE"
+   }
+  }
+ ],
+ "weight_kg": 2.0837869769446002,
+ "price_usd": 2671.9011678122315,
+ "release_year": 2021,
+ "updated_at": "2021-06-15T18:26:50.912087Z"
+}
