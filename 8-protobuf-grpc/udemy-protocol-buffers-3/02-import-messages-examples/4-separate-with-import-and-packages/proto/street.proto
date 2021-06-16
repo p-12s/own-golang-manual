@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";
+
+import "city.proto";
+
+message Street {
+  string name = 1;
+  City city = 2;
+
+  reserved 42, 55 to 66;
+}

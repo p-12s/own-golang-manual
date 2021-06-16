@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";
+
+message DayOfWeek {
+  enum DayOfWeek {
+    UNKNOWN = 0;
+    Monday = 1;
+    Tuesday = 2;
+    Wednesday = 3;
+    Thursday = 4;
+    Friday = 5;
+    Saturday = 6;
+    Sunday = 7;
+  }
+  DayOfWeek day_of_week = 1;
+
+  reserved 42, 55 to 66;
+}

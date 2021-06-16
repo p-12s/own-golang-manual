@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";
+
+message Date {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+
+  reserved 42, 55 to 66;
+}

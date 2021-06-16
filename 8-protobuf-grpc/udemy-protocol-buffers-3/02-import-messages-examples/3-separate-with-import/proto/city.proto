@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";  // doesn't work without this
+
+message City {
+  string name = 1;
+  string zip_code = 2;
+  string country_code = 3;
+
+  reserved 42, 55 to 66;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";
+
+message Money {
+  string currency_code = 1;
+  int32 integral_amount = 2;
+  int32 decimal_amount = 3;
+
+  reserved 42, 55 to 66;
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";  // doesn't work without this
+
+import "street.proto";
+
+message Building {
+  string building_name = 1;
+  int32 building_number = 2;
+  Street street = 3;
+
+  reserved 42, 55 to 66;
+}

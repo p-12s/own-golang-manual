@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package udemy;
+
+option go_package="./pb";
+
+message LatitudeLongitude {
+  int32 latitude = 1;
+  int32 longitude = 2;
+
+  reserved 42, 55 to 66;
+}
