@@ -1,5 +1,6 @@
 ![License](https://img.shields.io/github/license/p-12s/own-golang-manual?style=plastic)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/p-12s/own-golang-manual?style=plastic)
+![Go report](https://goreportcard.com/badge/github.com/p-12s/own-golang-manual?style=plastic)
 
 # Acquaintance with Go
 ![Go](https://github.com/p-12s/own-golang-manual/blob/master/go.png?raw=true)
