@@ -1,4 +1,4 @@
-https://img.shields.io/github/license/p-12s/own-golang-manual
+![License](https://img.shields.io/github/license/p-12s/own-golang-manual)
 
 # Acquaintance with Go
 ![Go](https://github.com/p-12s/own-golang-manual/blob/master/go.png?raw=true)
