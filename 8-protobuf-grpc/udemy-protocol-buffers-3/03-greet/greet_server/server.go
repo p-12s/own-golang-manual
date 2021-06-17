@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/03-greet/pb"
 	"google.golang.org/grpc"
+	"io"
 	"log"
 	"net"
 	"strconv"
@@ -30,6 +31,24 @@ func (*server) GreetManyTimes(req *pb.GreetManyTimesRequest, stream pb.GreetServ
 		time.Sleep(1 * time.Second)
 	}
 	return nil
+}
+
+func (*server) LongGreet(stream pb.GreetService_LongGreetServer) error {
+	result := "Hello "
+	for {
+		req, err := stream.Recv()
+		if err == io.EOF {
+			// finish
+			return stream.SendAndClose(&pb.LongGreetResponse{
+				Result: result,
+			})
+		}
+		if err != nil {
+			log.Fatalf("error while reading client stream %v", err)
+		}
+
+		result += req.GetGreeting().GetFirstName() + "! "
+	}
 }
 
 func main() {

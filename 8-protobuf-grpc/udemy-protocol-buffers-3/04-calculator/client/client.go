@@ -18,7 +18,8 @@ func main() {
 
 	c := pb.NewCalculatorServiceClient(cc)
 	//doUnary(c)
-	doServerStreaming(c)
+	//doServerStreaming(c)
+	doClientStreaming(c)
 }
 
 func doUnary(c pb.CalculatorServiceClient) {
@@ -35,7 +36,7 @@ func doUnary(c pb.CalculatorServiceClient) {
 }
 
 func doServerStreaming(c pb.CalculatorServiceClient) {
-	fmt.Println("start calculator client doServerStreaming()")
+	fmt.Println("start calculator server streaming doServerStreaming()")
 	req := &pb.PrimeNumberDecompositionRequest{
 		Number: 12,
 	}
@@ -56,4 +57,27 @@ func doServerStreaming(c pb.CalculatorServiceClient) {
 		log.Printf("%v\n", msg.GetPrimeFactor())
 	}
 	log.Printf("\nend doServerStreaming\n")
+}
+
+func doClientStreaming(c pb.CalculatorServiceClient) {
+	fmt.Println("start calculator client streaming doClientStreaming()")
+
+	resStream, err := c.ComputeAverage(context.Background())
+	if err != nil {
+		log.Fatalf("error while calling calculator client doServerStreaming() %v", err)
+	}
+
+	numbers := []int32{2, 3, 4}
+
+	for _, number := range numbers {
+		resStream.Send(&pb.ComputeAverageRequest{
+			Number: number,
+		})
+	}
+
+	res, err := resStream.CloseAndRecv()
+	if err != nil {
+		log.Fatalf("error while closing client stream doClientStreaming %v", err)
+	}
+	log.Printf("\nend doClientStreaming %v\n", res)
 }

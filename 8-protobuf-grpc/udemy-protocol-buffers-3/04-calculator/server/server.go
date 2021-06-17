@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/04-calculator/pb"
 	"google.golang.org/grpc"
+	"io"
 	"log"
 	"net"
 	"time"
@@ -37,6 +38,28 @@ func (*server) PrimeNumberDecomposition(req *pb.PrimeNumberDecompositionRequest,
 		time.Sleep(1 * time.Second)
 	}
 	return nil
+}
+
+func (*server) ComputeAverage(stream pb.CalculatorService_ComputeAverageServer) error {
+	fmt.Printf("\nserver action ComputeAverage()\n")
+
+	var sum int32
+	count := 0
+
+	for {
+		req, err := stream.Recv()
+		if err == io.EOF {
+			average := float64(sum) / float64(count)
+			return stream.SendAndClose(&pb.ComputeAverageResponse{
+				Average: average,
+			})
+		}
+		if err != nil {
+			log.Fatalf("error while reading client stream %v", err)
+		}
+		sum += req.GetNumber()
+		count++
+	}
 }
 
 func main() {
