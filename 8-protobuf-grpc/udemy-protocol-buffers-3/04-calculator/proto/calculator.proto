@@ -36,6 +36,14 @@ message FindMaxResponse {
   int32 max = 1;
 }
 
+// Unary, with errors
+message SquareRootRequest {
+  int32 number = 1;
+}
+message SquareRootResponse {
+  double number_root = 1;
+}
+
 service CalculatorService {
   // Unary
   rpc Sum(SumRequest) returns (ResultResponse) {};
@@ -45,4 +53,6 @@ service CalculatorService {
   rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse) {};
   // Bi-directional steaming
   rpc FindMax(stream FindMaxRequest) returns (stream FindMaxResponse) {};
+  // Unary, with errors
+  rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {};
 }

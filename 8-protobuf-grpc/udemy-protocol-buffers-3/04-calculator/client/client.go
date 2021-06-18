@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/04-calculator/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"io"
 	"log"
 	"time"
@@ -21,7 +23,11 @@ func main() {
 	//doUnary(c)
 	//doServerStreaming(c)
 	//doClientStreaming(c)
-	doBiDirectionalStreaming(c)
+	//doBiDirectionalStreaming(c)
+	doErrorUnary(c, 122)
+	doErrorUnary(c, 10)
+	doErrorUnary(c, 0)
+	doErrorUnary(c, -9)
 }
 
 func doUnary(c pb.CalculatorServiceClient) {
@@ -125,4 +131,27 @@ func doBiDirectionalStreaming(c pb.CalculatorServiceClient) {
 	}()
 
 	<-waitChan
+}
+
+func doErrorUnary(c pb.CalculatorServiceClient, number int32) {
+	fmt.Println("start calculator client doErrorUnary()")
+	req := &pb.SquareRootRequest{
+		Number: number,
+	}
+	res, err := c.SquareRoot(context.Background(), req)
+	if err != nil {
+		respErr, ok := status.FromError(err)
+		if ok {
+			fmt.Println(respErr.Message())
+			fmt.Println(respErr.Code())
+			if respErr.Code() == codes.InvalidArgument {
+				fmt.Println("we sent negative number")
+				return
+			}
+		} else {
+			log.Fatalf("error while calling calculator client doErrorUnary() %v", err)
+			return
+		}
+	}
+	log.Printf("\nnumber %d square is:\n%v\n", number, res.GetNumberRoot())
 }

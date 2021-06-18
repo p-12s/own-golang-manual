@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/04-calculator/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"io"
 	"log"
+	"math"
 	"net"
 	"time"
 )
@@ -89,6 +92,17 @@ func (*server) FindMax(stream pb.CalculatorService_FindMaxServer) error {
 		}
 
 	}
+}
+
+func (*server) SquareRoot(ctx context.Context, req *pb.SquareRootRequest) (*pb.SquareRootResponse, error) {
+	fmt.Printf("\nserver action SquareRoot()\n")
+	number := req.GetNumber()
+	if number < 0 {
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("received negative number: %d\n", number))
+	}
+	return &pb.SquareRootResponse{
+		NumberRoot: math.Sqrt(float64(number)),
+	}, nil
 }
 
 func main() {
