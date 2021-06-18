@@ -15,6 +15,7 @@ import (
 type server struct{}
 
 func (*server) Greet(ctx context.Context, req *pb.GreetRequest) (*pb.GreetResponse, error) {
+	fmt.Println("Greet invoked")
 	firstName := req.GetGreeting().GetFirstName()
 	lastName := req.GetGreeting().GetLastName()
 	return &pb.GreetResponse{
@@ -23,6 +24,7 @@ func (*server) Greet(ctx context.Context, req *pb.GreetRequest) (*pb.GreetRespon
 }
 
 func (*server) GreetManyTimes(req *pb.GreetManyTimesRequest, stream pb.GreetService_GreetManyTimesServer) error {
+	fmt.Println("GreetManyTimes invoked with a streaming result")
 	firstName := req.GetGreeting().GetFirstName()
 	for i := 0; i < 10; i++ {
 		stream.Send(&pb.GreetManyTimesResponse{
@@ -34,6 +36,7 @@ func (*server) GreetManyTimes(req *pb.GreetManyTimesRequest, stream pb.GreetServ
 }
 
 func (*server) LongGreet(stream pb.GreetService_LongGreetServer) error {
+	fmt.Println("LongGreet invoked with a streaming result")
 	result := "Hello "
 	for {
 		req, err := stream.Recv()
@@ -48,6 +51,27 @@ func (*server) LongGreet(stream pb.GreetService_LongGreetServer) error {
 		}
 
 		result += req.GetGreeting().GetFirstName() + "! "
+	}
+}
+
+func (*server) GreetEveryone(stream pb.GreetService_GreetEveryoneServer) error {
+	fmt.Println("GreetEveryone invoked with a streaming result")
+
+	for {
+		req, err := stream.Recv()
+		if err == io.EOF {
+			return nil
+		}
+		if err != nil {
+			log.Fatalf("error while reading client stream %v", err)
+		}
+
+		err = stream.Send(&pb.GreetEveryoneResponse{
+			Result: "Hello " + req.GetGreeting().GetFirstName() + " " + req.GetGreeting().GetLastName() + "!",
+		})
+		if err != nil {
+			log.Fatalf("error while sending data to client %v", err)
+		}
 	}
 }
 

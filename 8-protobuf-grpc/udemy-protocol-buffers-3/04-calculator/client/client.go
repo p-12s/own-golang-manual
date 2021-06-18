@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"io"
 	"log"
+	"time"
 )
 
 func main() {
@@ -19,7 +20,8 @@ func main() {
 	c := pb.NewCalculatorServiceClient(cc)
 	//doUnary(c)
 	//doServerStreaming(c)
-	doClientStreaming(c)
+	//doClientStreaming(c)
+	doBiDirectionalStreaming(c)
 }
 
 func doUnary(c pb.CalculatorServiceClient) {
@@ -80,4 +82,47 @@ func doClientStreaming(c pb.CalculatorServiceClient) {
 		log.Fatalf("error while closing client stream doClientStreaming %v", err)
 	}
 	log.Printf("\nend doClientStreaming %v\n", res)
+}
+
+func doBiDirectionalStreaming(c pb.CalculatorServiceClient) {
+	fmt.Println("start calculator client streaming doBiDirectionalStreaming()")
+
+	stream, err := c.FindMax(context.Background())
+	if err != nil {
+		log.Fatalf("error while calling calculator client doBiDirectionalStreaming() %v", err)
+	}
+
+	waitChan := make(chan struct{})
+
+	// send
+	go func() {
+		numbers := []int32{320, 3, 43, 1000, 500, 21, 12, -3245}
+		for _, req := range numbers {
+			fmt.Printf("sending number: %v\n", req)
+			stream.Send(&pb.FindMaxRequest{
+				Number: req,
+			})
+			time.Sleep(1 * time.Second)
+		}
+		stream.CloseSend()
+	}()
+
+	// receive
+	go func() {
+		for {
+			res, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				log.Fatalf("error while receiving stream in doBiDirectionalStreaming %v", err)
+				break
+			}
+			max := res.GetMax()
+			fmt.Printf("received a new max of: %v\n", max)
+		}
+		close(waitChan)
+	}()
+
+	<-waitChan
 }

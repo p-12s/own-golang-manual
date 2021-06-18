@@ -5,8 +5,8 @@ clean:
 	rm pb/*.go
 
 
-server:
-	go run greet_server/server.go
+s:
+	go run server/server.go
 
-client:
-	go run greet_client/client.go
+c:
+	go run client/client.go
