@@ -44,6 +44,14 @@ message SquareRootResponse {
   double number_root = 1;
 }
 
+// Unary, with deadline
+message DeadlineRequest {
+  int32 number = 1;
+}
+message DeadlineResponse {
+  double number_root = 1;
+}
+
 service CalculatorService {
   // Unary
   rpc Sum(SumRequest) returns (ResultResponse) {};
@@ -53,6 +61,9 @@ service CalculatorService {
   rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse) {};
   // Bi-directional steaming
   rpc FindMax(stream FindMaxRequest) returns (stream FindMaxResponse) {};
+
   // Unary, with errors
   rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {};
+  // Unary, with deadline
+  rpc DeadlineExample(DeadlineRequest) returns (DeadlineResponse) {};
 }

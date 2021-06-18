@@ -24,10 +24,12 @@ func main() {
 	//doServerStreaming(c)
 	//doClientStreaming(c)
 	//doBiDirectionalStreaming(c)
-	doErrorUnary(c, 122)
+	/*doErrorUnary(c, 122)
 	doErrorUnary(c, 10)
 	doErrorUnary(c, 0)
-	doErrorUnary(c, -9)
+	doErrorUnary(c, -9)*/
+	doUnaryWithDeadline(c, 5*time.Second)
+	doUnaryWithDeadline(c, 1*time.Second)
 }
 
 func doUnary(c pb.CalculatorServiceClient) {
@@ -154,4 +156,30 @@ func doErrorUnary(c pb.CalculatorServiceClient, number int32) {
 		}
 	}
 	log.Printf("\nnumber %d square is:\n%v\n", number, res.GetNumberRoot())
+}
+
+func doUnaryWithDeadline(c pb.CalculatorServiceClient, timeout time.Duration) {
+	fmt.Println("start calculator client doUnaryWithDeadline()")
+	req := &pb.DeadlineRequest{
+		Number: 10,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
+	res, err := c.DeadlineExample(ctx, req)
+	if err != nil {
+		statusErr, ok := status.FromError(err)
+		if ok {
+			if statusErr.Code() == codes.DeadlineExceeded {
+				log.Printf("timeout was hit: %v", err)
+			} else {
+				log.Printf("unexpected error doUnaryWithDeadline() %v", statusErr)
+			}
+		} else {
+			log.Fatalf("error while calling calculator client doUnaryWithDeadline() %v", err)
+		}
+		return
+	}
+	log.Printf("\nend calculator client doUnaryWithDeadline() with result:\n%v\n", res.NumberRoot)
 }

@@ -105,6 +105,27 @@ func (*server) SquareRoot(ctx context.Context, req *pb.SquareRootRequest) (*pb.S
 	}, nil
 }
 
+func (*server) DeadlineExample(ctx context.Context, req *pb.DeadlineRequest) (*pb.DeadlineResponse, error) {
+	fmt.Printf("\nserver action DeadlineExample()\n")
+
+	for i := 0; i < 3; i++ {
+		if ctx.Err() == context.Canceled {
+			// client canceled
+			fmt.Println("the client canceled the request")
+			return nil, status.Error(codes.Canceled, "the client canceled the request")
+		}
+		time.Sleep(1 * time.Second)
+	}
+
+	number := req.GetNumber()
+	if number < 0 {
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("received negative number: %d\n", number))
+	}
+	return &pb.DeadlineResponse{
+		NumberRoot: math.Sqrt(float64(number)),
+	}, nil
+}
+
 func main() {
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {

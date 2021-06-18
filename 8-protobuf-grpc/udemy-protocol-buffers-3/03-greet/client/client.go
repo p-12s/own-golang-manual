@@ -5,13 +5,26 @@ import (
 	"fmt"
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/03-greet/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"io"
 	"log"
 	"time"
 )
 
 func main() {
-	cc, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+
+	isTls := true
+	opts := grpc.WithInsecure()
+	if isTls {
+		creds, err := credentials.NewClientTLSFromFile("../ssl/ca.crt", "")
+		if err != nil {
+			log.Fatalf("could not read cert files: %v", err)
+			return
+		}
+		opts = grpc.WithTransportCredentials(creds)
+	}
+
+	cc, err := grpc.Dial("localhost:50051", opts)
 	if err != nil {
 		log.Fatalf("could not connect %v", err)
 	}
@@ -19,9 +32,9 @@ func main() {
 
 	c := pb.NewGreetServiceClient(cc)
 
-	//doUnary(c)
+	doUnary(c)
 	//doServerStreaming(c)
-	doClientStreaming(c)
+	//doClientStreaming(c)
 }
 
 func doUnary(c pb.GreetServiceClient) {
