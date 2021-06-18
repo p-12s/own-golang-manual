@@ -6,6 +6,7 @@ import (
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/04-calculator/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 	"io"
 	"log"
@@ -134,6 +135,9 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterCalculatorServiceServer(s, &server{})
+
+	// register reflection service
+	reflection.Register(s)
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve %v", err)
