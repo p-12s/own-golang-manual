@@ -4,7 +4,6 @@ gen:
 clean:
 	rm pb/*.go
 
-
 s:
 	go run server/server.go
 
