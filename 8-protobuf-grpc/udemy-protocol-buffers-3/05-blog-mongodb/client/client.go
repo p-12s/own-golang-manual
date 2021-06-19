@@ -31,11 +31,24 @@ func main() {
 
 	c := pb.NewBlogServiceClient(cc)
 
-	doUnary(c)
+	//createPost(c)
+	//readPost(c, "60ce106a0ee96f3c8e6e15e0")
+	//readPost(c, "60ce106a0ee96f3c8e6e15e1")
+	//readPost(c, "not-exists-id")
+
+	/*updatedData := &pb.Blog{
+		Id:       "60ce230969ce90e890f671f0",
+		AuthorId: "Mister 2 NEW",
+		Title:    "My title 2 NEW NEW",
+		Content:  "My content 2 NEW NEW NEW",
+	}
+	updatePost(c, updatedData)*/
+
+	deletePost(c, "60ce0bfa0ee96f3c8e6e15df")
 }
 
-func doUnary(c pb.BlogServiceClient) {
-	fmt.Println("send blog from client")
+func createPost(c pb.BlogServiceClient) {
+	fmt.Println("create Post")
 	blog := &pb.Blog{
 		AuthorId: "Mister",
 		Title:    "My title",
@@ -47,5 +60,38 @@ func doUnary(c pb.BlogServiceClient) {
 	if err != nil {
 		log.Fatalf("error while calling CreateBlog %v\n", err)
 	}
-	log.Printf("\nblog has been created:\n%v\n", res.GetBlog())
+	log.Printf("\nPost has been created:\n%v\n", res.GetBlog())
+}
+
+func readPost(c pb.BlogServiceClient, blogId string) {
+	fmt.Println("read Post")
+	res, err := c.ReadBlog(context.Background(), &pb.ReadBlogRequest{
+		BlogId: blogId,
+	})
+	if err != nil {
+		log.Fatalf("error while read post %v\n", err)
+	}
+	fmt.Println(res)
+}
+
+func updatePost(c pb.BlogServiceClient, blog *pb.Blog) {
+	fmt.Println("update Post")
+	res, err := c.UpdateBlog(context.Background(), &pb.UpdateBlogRequest{
+		Blog: blog,
+	})
+	if err != nil {
+		log.Fatalf("error while calling updatePost %v\n", err)
+	}
+	log.Printf("\nPost has been updated:\n%v\n", res.GetBlog())
+}
+
+func deletePost(c pb.BlogServiceClient, blogId string) {
+	fmt.Println("delete Post")
+	res, err := c.DeleteBlog(context.Background(), &pb.DeleteBlogRequest{
+		BlogId: blogId,
+	})
+	if err != nil {
+		log.Fatalf("error while delete post %v\n", err)
+	}
+	fmt.Println(res)
 }

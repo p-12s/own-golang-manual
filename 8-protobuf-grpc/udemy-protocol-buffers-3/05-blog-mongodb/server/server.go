@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/05-blog-mongodb/pb"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -20,6 +21,7 @@ import (
 type server struct{}
 
 func (*server) CreateBlog(ctx context.Context, req *pb.CreateBlogRequest) (*pb.CreateBlogResponse, error) {
+	fmt.Println("create post on server")
 	blog := req.GetBlog()
 	data := blogItem{
 		AuthorId: blog.GetAuthorId(),
@@ -49,6 +51,110 @@ func (*server) CreateBlog(ctx context.Context, req *pb.CreateBlogRequest) (*pb.C
 			Title:    blog.GetTitle(),
 			Content:  blog.GetContent(),
 		},
+	}, nil
+}
+
+func (*server) ReadBlog(ctx context.Context, req *pb.ReadBlogRequest) (*pb.ReadBlogResponse, error) {
+	fmt.Println("read post on server")
+	blogId := req.GetBlogId()
+	objId, err := primitive.ObjectIDFromHex(blogId)
+	if err != nil {
+		return nil, status.Errorf(
+			codes.InvalidArgument,
+			fmt.Sprintf("can't parse objId: %v", err),
+		)
+	}
+	data := &blogItem{}
+	filter := bson.D{{"_id", objId}}
+
+	res := collection.FindOne(context.Background(), filter)
+	if err := res.Decode(data); err != nil {
+		return nil, status.Errorf(
+			codes.NotFound,
+			fmt.Sprintf("not found record with objId %s:, %v", blogId, err),
+		)
+	}
+	return &pb.ReadBlogResponse{
+		Blog: &pb.Blog{
+			Id:       data.ID.Hex(),
+			AuthorId: data.AuthorId,
+			Title:    data.Title,
+			Content:  data.Content,
+		},
+	}, nil
+}
+
+func (*server) UpdateBlog(ctx context.Context, req *pb.UpdateBlogRequest) (*pb.UpdateBlogResponse, error) {
+	fmt.Println("update post on server")
+	blog := req.GetBlog()
+	objId, err := primitive.ObjectIDFromHex(blog.GetId())
+	if err != nil {
+		return nil, status.Errorf(
+			codes.InvalidArgument,
+			fmt.Sprintf("can't parse objId: %v", err),
+		)
+	}
+
+	data := &blogItem{}
+	filter := bson.D{{"_id", objId}}
+	res := collection.FindOne(context.Background(), filter)
+	if err := res.Decode(data); err != nil {
+		return nil, status.Errorf(
+			codes.NotFound,
+			fmt.Sprintf("not found record with objId %s:, %v", blog.GetId(), err),
+		)
+	}
+
+	data.AuthorId = blog.GetAuthorId()
+	data.Title = blog.GetTitle()
+	data.Content = blog.GetContent()
+
+	_, updateErr := collection.ReplaceOne(context.Background(), filter, data)
+	if updateErr != nil {
+		return nil, status.Errorf(
+			codes.Internal,
+			fmt.Sprintf("can't update objId: %v", err),
+		)
+	}
+
+	return &pb.UpdateBlogResponse{
+		Blog: &pb.Blog{
+			Id:       data.ID.Hex(),
+			AuthorId: data.AuthorId,
+			Title:    data.Title,
+			Content:  data.Content,
+		},
+	}, nil
+}
+
+func (*server) DeleteBlog(ctx context.Context, req *pb.DeleteBlogRequest) (*pb.DeleteBlogResponse, error) {
+	fmt.Println("delete post on server")
+	blogId := req.GetBlogId()
+	objId, err := primitive.ObjectIDFromHex(blogId)
+	if err != nil {
+		return nil, status.Errorf(
+			codes.InvalidArgument,
+			fmt.Sprintf("can't parse objId: %v", err),
+		)
+	}
+
+	filter := bson.D{{"_id", objId}}
+	res, err := collection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		return nil, status.Errorf(
+			codes.Internal,
+			fmt.Sprintf("can't delete: %v", err),
+		)
+	}
+
+	if res.DeletedCount == 0 {
+		return nil, status.Errorf(
+			codes.NotFound,
+			fmt.Sprintf("record not found for delete: %v", err),
+		)
+	}
+	return &pb.DeleteBlogResponse{
+		BlogId: blogId,
 	}, nil
 }
 
