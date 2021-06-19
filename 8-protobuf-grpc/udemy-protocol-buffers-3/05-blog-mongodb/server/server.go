@@ -158,6 +158,46 @@ func (*server) DeleteBlog(ctx context.Context, req *pb.DeleteBlogRequest) (*pb.D
 	}, nil
 }
 
+func (*server) ListBlog(req *pb.ListBlogRequest, stream pb.BlogService_ListBlogServer) error {
+	fmt.Println("get list post on server")
+
+	filter := bson.D{}
+	cursor, err := collection.Find(context.Background(), filter)
+	if err != nil {
+		return status.Errorf(
+			codes.Internal,
+			fmt.Sprintf("can't get list of post: %v", err),
+		)
+	}
+	defer cursor.Close(context.Background())
+
+	for cursor.Next(context.Background()) {
+		data := &blogItem{}
+		err := cursor.Decode(data)
+		if err != nil {
+			return status.Errorf(
+				codes.Internal,
+				fmt.Sprintf("error while decode data when get list of post: %v", err),
+			)
+		}
+		stream.Send(&pb.ListBlogResponse{
+			Blog: &pb.Blog{
+				Id:       data.ID.Hex(),
+				AuthorId: data.AuthorId,
+				Title:    data.Title,
+				Content:  data.Content,
+			},
+		})
+	}
+	if err := cursor.Err(); err != nil {
+		return status.Errorf(
+			codes.Internal,
+			fmt.Sprintf("unknown internal error: %v", err),
+		)
+	}
+	return nil
+}
+
 var collection *mongo.Collection
 
 type blogItem struct {

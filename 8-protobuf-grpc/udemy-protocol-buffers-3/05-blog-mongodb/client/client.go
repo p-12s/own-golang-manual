@@ -6,6 +6,7 @@ import (
 	"github.com/p-12s/own-golang-manual/8-protobuf-grpc/udemy-protocol-buffers-3/05-blog-mongodb/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"io"
 	"log"
 )
 
@@ -31,20 +32,20 @@ func main() {
 
 	c := pb.NewBlogServiceClient(cc)
 
-	//createPost(c)
-	//readPost(c, "60ce106a0ee96f3c8e6e15e0")
-	//readPost(c, "60ce106a0ee96f3c8e6e15e1")
-	//readPost(c, "not-exists-id")
+	createPost(c)
 
-	/*updatedData := &pb.Blog{
-		Id:       "60ce230969ce90e890f671f0",
+	readPost(c, "60ce3459872ab0ef155593a0")
+	updatedData := &pb.Blog{
+		Id:       "60ce3459872ab0ef155593a0",
 		AuthorId: "Mister 2 NEW",
 		Title:    "My title 2 NEW NEW",
 		Content:  "My content 2 NEW NEW NEW",
 	}
-	updatePost(c, updatedData)*/
+	updatePost(c, updatedData)
+	readPost(c, "60ce3459872ab0ef155593a0")
 
-	deletePost(c, "60ce0bfa0ee96f3c8e6e15df")
+	// deletePost(c, "60ce0bfa0ee96f3c8e6e15df")
+	getList(c)
 }
 
 func createPost(c pb.BlogServiceClient) {
@@ -94,4 +95,22 @@ func deletePost(c pb.BlogServiceClient, blogId string) {
 		log.Fatalf("error while delete post %v\n", err)
 	}
 	fmt.Println(res)
+}
+
+func getList(c pb.BlogServiceClient) {
+	fmt.Println("get list of Posts")
+	stream, err := c.ListBlog(context.Background(), &pb.ListBlogRequest{})
+	if err != nil {
+		log.Fatalf("error 1 while getting list of posts %v\n", err)
+	}
+	for {
+		res, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalf("error 2 while getting list of posts: %v", err)
+		}
+		fmt.Println(res.GetBlog())
+	}
 }
