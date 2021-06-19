@@ -34,7 +34,7 @@ func main() {
 
 	createPost(c)
 
-	readPost(c, "60ce3459872ab0ef155593a0")
+	/*readPost(c, "60ce3459872ab0ef155593a0")
 	updatedData := &pb.Blog{
 		Id:       "60ce3459872ab0ef155593a0",
 		AuthorId: "Mister 2 NEW",
@@ -44,7 +44,7 @@ func main() {
 	updatePost(c, updatedData)
 	readPost(c, "60ce3459872ab0ef155593a0")
 
-	// deletePost(c, "60ce0bfa0ee96f3c8e6e15df")
+	deletePost(c, "60ce0bfa0ee96f3c8e6e15df")*/
 	getList(c)
 }
 
