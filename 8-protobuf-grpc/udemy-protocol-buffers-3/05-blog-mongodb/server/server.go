@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 	"log"
 	"net"
@@ -247,6 +248,9 @@ func main() {
 
 	s := grpc.NewServer(opts...)
 	pb.RegisterBlogServiceServer(s, &server{})
+
+	// register reflection service (Evans)
+	reflection.Register(s)
 
 	go func() {
 		fmt.Println("Server start")
