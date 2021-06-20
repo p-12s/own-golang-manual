@@ -21,6 +21,10 @@
 - Двунаправленный стриминг      (Bidirectional streaming RPCs)
 ![gRPC](https://github.com/p-12s/own-golang-manual/blob/master/8-protobuf-grpc/gRPC.png?raw=true)
 
+## Best practice
+- В файлах *.proto нужно добавлять описание, примеры: [google-pubsub](https://github.com/googleapis/googleapis/blob/master/google/pubsub/v1/pubsub.proto) [google-spanner](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/spanner.proto)
+- Для ручного тестирования работы с помощью Evans, можно подключить reflection
+
 ## Субъективное мнение про протоколы
 - RPC
     - SOAP
