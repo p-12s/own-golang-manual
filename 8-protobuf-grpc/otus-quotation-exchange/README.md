@@ -13,7 +13,8 @@
 - websocket  
 - evans, wscat для отладки   
   
-Выполнение:
+Выполнение:  
+Схема работы  
 ![Схема работы](https://github.com/p-12s/own-golang-manual/blob/master/8-protobuf-grpc/otus-quotation-exchange/exchange.png?raw=true)
 
 1. Идем в документацию биржи, смотрим как с ней работать:    
