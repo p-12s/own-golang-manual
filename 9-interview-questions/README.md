@@ -44,8 +44,32 @@ type stringStruct struct {
 <span style="color:#e83e8c;">- [Как задать направление канала?](docs/GOLANG.md#8)</span>  
 <span style="color:#e83e8c;">- [Напишите собственную функцию Sleep, используя time.After](docs/GOLANG.md#9)</span>  
 <span style="color:#e83e8c;">- [Что такое буферизированный канал? Как создать такой канал с ёмкостью в 20 сообщений?](docs/GOLANG.md#10)</span>  
-<span style="color:#e83e8c;">- [Напишите программу, которая меняет местами два числа (x := 1; y := 2; swap(&x, &y) должно дать x=2 и y=1)](docs/GOLANG.md#11)</span>  
-<span style="color:#e83e8c;">- [Какое будет значение у переменной x после выполнения программы?](docs/GOLANG.md#12)</span>  
+<span style="color:green">- Напишите программу, которая меняет местами два числа (x := 1; y := 2; swap(&x, &y) должно дать x=2 и y=1)</span>
+```go
+func swap(x, y *int) {
+	*x, *y = *y, *x
+}
+func main() {
+	x := 1; 
+	y := 2;
+	swap(&x, &y)
+}
+```
+<span style="color:green">- Какое будет значение у переменной x после выполнения программы?</span>
+```go
+func square(x *float64) {
+	*x = *x * *x
+}
+func main() {
+	x := 1.5
+	square(&x)
+	fmt.Println(x)
+}
+```
+Ответ
+```
+2.25
+```
 <span style="color:#e83e8c;">- [Какое значение примет выражение (true && false) || (false && true) || !(false && false)?](docs/GOLANG.md#13)</span>  
 <span style="color:#e83e8c;">- [Мы знаем, что в десятичной системе самое большое число из одной цифры - это 9, а из двух - 99. В бинарной системе самое большое число из двух цифр это 11 (3), самое большое число из трех цифр это 111 (7) и самое большое число из 4 цифр это 1111 (15). Вопрос: каково самое большое число из 8 цифр? (Подсказка: 101-1=9 и 102-1=99)](docs/GOLANG.md#14)</span>  
 <span style="color:#e83e8c;">- [Что выведет следующая программа?](docs/GOLANG.md#15)</span>  
@@ -96,3 +120,74 @@ type stringStruct struct {
 <span style="color:#e83e8c;">- [Сделать конвейер чисел](docs/POPULAR_TASKS.md#4)</span>  
 <span style="color:#e83e8c;">- [Написать WorkerPool с заданной функцией](docs/POPULAR_TASKS.md#5)</span>  
 <span style="color:#e83e8c;">- [Сделать кастомную waitGroup на семафоре](docs/POPULAR_TASKS.md#6)</span>  
+
+
+1. Что из себя представляет тип данных string в языке Golang? Можно ли изменить определенный символ в строке? Что происходит при склеивании строк?
+
+2. Вытекающий вопрос — как эффективно склеивать множество строк?
+3. Что будет происходить при конкуррентной записи в map? Как можно решить эту проблему?
+4. Нужно ли лочить структуру мьютексом, если идет конкуррентная запись в разные поля структуры?
+5. Что выведет код?
+   func main() {
+   runtime.GOMAXPROCS(1)
+
+   done := false
+
+   go func() {
+   done = true
+   }()
+
+   for !done {
+   }
+   fmt.Println("finished")
+   }
+   Как можно изменить этот код, чтобы был вывод “finished”?
+6. Как устроены каналы “под капотом”? (об этом я расказал в своих статьях “Под капотом Golang — как работают каналы. Часть 1” и “Строение каналов в Golang. Часть 2.”)
+7. Какая есть проблема в коде?
+   var counter int
+   for i := 0; i < 1000; i++ {
+   go func() {
+   counter++
+   }()
+   }
+   Как её можно решить?
+   А как её можно бы было решить, если бы в языке не было пакета sync?
+8. Можно ли реализовать sync.Mutex и sync.WaitGroup на каналах? Как?
+9. Что ты использовал из пакета sync(кроме Mutex и WaitGroup)?
+10. Что выведет код
+    func main() {
+    v := 5
+    p := &v
+    println(*p)
+
+changePointer(p)
+println(*p)
+}
+
+func changePointer(p *int) {
+v := 3
+p = &v
+}
+Почему? Как нужно изменить функцию changePointer, чтобы вывело 5 и 3 (в оригинальной версии выводится 5 и 5)?
+11. За сколько примерно выполнится приложение — за 3 секунды или за 6?
+    func worker() chan int {
+    ch := make(chan int)
+
+go func() {
+time.Sleep(3 * time.Second)
+ch <- 42
+}()
+
+return ch
+}
+
+func main() {
+timeStart := time.Now()
+
+_, _ = <-worker(), <-worker()
+
+println(int(time.Since(timeStart).Seconds())) // что выведет - 3 или 6?
+}
+Что нужно изменить, чтобы код работал за 3 секунды?
+
+
